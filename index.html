@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Shavi Hospital | Appointment System</title>
+
+    <style>
+
+        /* =========================
+           GENERAL STYLING
+        ========================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f9fc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        header {
+            background: white;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            min-height: 75px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #087f8c;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: #087f8c;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            font-size: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: #334155;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #087f8c;
+        }
+
+        .nav-button {
+            background: #087f8c;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 25px;
+        }
+
+        .nav-button:hover {
+            background: #05636e;
+        }
+
+
+        /* =========================
+           HERO SECTION
+        ========================== */
+
+        .hero {
+            min-height: 600px;
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(8,127,140,0.95),
+                    rgba(14,116,144,0.88)
+                );
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            padding: 80px 0;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 18px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #b8f3f6;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 620px;
+            margin-bottom: 30px;
+            color: #e6ffff;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            background: white;
+            color: #087f8c;
+            padding: 14px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .secondary-btn:hover {
+            background: white;
+            color: #087f8c;
+        }
+
+
+        /* =========================
+           STATS
+        ========================== */
+
+        .stats {
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stats-grid {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 30px;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat h2 {
+            color: #087f8c;
+            font-size: 32px;
+        }
+
+        .stat p {
+            color: #64748b;
+        }
+
+
+        /* =========================
+           SECTION COMMON
+        ========================== */
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .title-line {
+            width: 70px;
+            height: 4px;
+            background: #087f8c;
+            margin: 15px auto;
+            border-radius: 5px;
+        }
+
+
+        /* =========================
+           DEPARTMENTS
+        ========================== */
+
+        .departments {
+            background: white;
+        }
+
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .department-card {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .department-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #087f8c;
+        }
+
+        .department-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .department-card h3 {
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .department-card p {
+            color: #64748b;
+        }
+
+
+        /* =========================
+           DOCTORS
+        ========================== */
+
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .doctor-photo {
+            height: 180px;
+            background: linear-gradient(
+                135deg,
+                #087f8c,
+                #38bdf8
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+        }
+
+        .doctor-info {
+            padding: 20px;
+        }
+
+        .doctor-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .doctor-info .speciality {
+            color: #087f8c;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .doctor-info p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .experience {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #475569;
+        }
+
+
+        /* =========================
+           APPOINTMENT SECTION
+        ========================== */
+
+        .appointment-section {
+            background:
+                linear-gradient(
+                    135deg,
+                    #e6fffb,
+                    #f0f9ff
+                );
+        }
+
+        .appointment-wrapper {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .appointment-info {
+            background: #087f8c;
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            min-height: 500px;
+        }
+
+        .appointment-info h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .appointment-info p {
+            color: #d9ffff;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .info-icon {
+            font-size: 25px;
+        }
+
+        .info-item h4 {
+            margin-bottom: 3px;
+        }
+
+        .info-item p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .appointment-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .appointment-form h2 {
+            margin-bottom: 25px;
+            color: #0f172a;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #334155;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 13px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            font-family: inherit;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #087f8c;
+            box-shadow: 0 0 0 3px rgba(8,127,140,0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .book-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background: #087f8c;
+            color: white;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background: #05636e;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           APPOINTMENTS
+        ========================== */
+
+        .appointments-section {
+            background: white;
+        }
+
+        .appointment-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .appointment-card {
+            border: 1px solid #dbeafe;
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .appointment-details h3 {
+            color: #087f8c;
+            margin-bottom: 8px;
+        }
+
+        .appointment-details p {
+            color: #475569;
+            margin: 4px 0;
+        }
+
+        .appointment-status {
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .cancel-btn {
+            background: #ef4444;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .cancel-btn:hover {
+            background: #dc2626;
+        }
+
+        .no-appointments {
+            text-align: center;
+            padding: 40px;
+            background: #f8fafc;
+            border-radius: 15px;
+            color: #64748b;
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================== */
+
+        .contact-section {
+            background: #0f172a;
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+
+        .contact-card .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            color: #cbd5e1;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #020617;
+            color: #94a3b8;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer span {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           NOTIFICATION
+        ========================== */
+
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: #16a34a;
+            color: white;
+            padding: 18px 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: 0.4s;
+            z-index: 2000;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media (max-width: 1000px) {
+
+            .doctor-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .department-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .appointment-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+                padding-bottom: 15px;
+            }
+
+            .department-grid,
+            .doctor-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .appointment-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .appointment-form,
+            .appointment-info {
+                padding: 25px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+.departments-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.department-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.department-card:hover {
+    transform: translateY(-7px);
+    border-color: #3498db;
+}
+
+.department-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.department-card h3 {
+    margin: 10px 0;
+    color: #2c3e50;
+}
+
+.department-card p {
+    color: #666;
+}
+
+/* Doctors section */
+
+.department-doctors {
+    margin-top: 30px;
+    padding: 30px;
+    background: #f8fbff;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.department-doctors h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+#doctorMessage {
+    color: #666;
+}
+
+#doctorList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.doctor-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.doctor-card .doctor-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.doctor-card h3 {
+    color: #2c3e50;
+    margin: 8px 0;
+}
+
+.doctor-card p {
+    color: #666;
+}
+
+@media (max-width: 768px) {
+
+    .departments-container {
+        grid-template-columns: 1fr;
+    }
+
+    #doctorList {
+        grid-template-columns: 1fr;
+    }
+}
+/* Thank You Message */
+
+.thank-you-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.thank-you-box {
+    background: white;
+    width: 90%;
+    max-width: 450px;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: thankYouPop 0.4s ease;
+}
+
+.thank-you-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.thank-you-box h2 {
+    color: #1e88e5;
+    margin-bottom: 15px;
+}
+
+.thank-you-box p {
+    color: #555;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.thank-you-box button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: #1e88e5;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.thank-you-box button:hover {
+    background: #1565c0;
+}
+
+@keyframes thankYouPop {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVIGATION
+========================== -->
+
+<header>
+
+    <div class="container">
+
+        <nav>
+
+            <a href="#home" class="logo">
+
+                <div class="logo-icon">
+                    🏥
+                </div>
+
+                Shavi LifeCare
+
+            </a>
+
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+
+                <li>
+                    <a href="#departments">Departments</a>
+                </li>
+
+                <li>
+                    <a href="#doctors">Doctors</a>
+                </li>
+
+                <li>
+                    <a href="#appointment">Appointment</a>
+                </li>
+
+                <li>
+                    <a href="#appointments">My Appointments</a>
+                </li>
+
+                <li>
+                    <a href="#contact" class="nav-button">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================== -->
+
+<section class="hero" id="home">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                ❤️ Trusted Healthcare
+            </div>
+
+            <h1>
+                Your Health,
+                <span>Our Priority</span>
+            </h1>
+
+            <p>
+                Welcome to Shavi LifeCare Hospital. Get quality healthcare
+                from experienced doctors and book your appointment
+                easily from the comfort of your home.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#appointment" class="primary-btn">
+                    📅 Book Appointment
+                </a>
+
+                <a href="#doctors" class="secondary-btn">
+                    👨‍⚕️ Meet Our Doctors
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     STATISTICS
+========================== -->
+
+<div class="stats">
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+            <div class="stat">
+
+                <h2>25+</h2>
+
+                <p>
+                    Expert Doctors
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>10K+</h2>
+
+                <p>
+                    Happy Patients
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>15+</h2>
+
+                <p>
+                    Departments
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>24/7</h2>
+
+                <p>
+                    Emergency Service
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     DEPARTMENTS
+========================== -->
+
+<section class="departments" id="departments">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Our Departments
+            </h2>
+
+            <div class="title-line"></div>
+
+            <p>
+                We provide specialized medical services
+                through experienced healthcare professionals.
+            </p>
+
+        </div>
+
+
+        <div class="department-grid">
+
+
+            <div class="department-card" data-department="Cardiology">
+
+                <div class="department-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    Cardiology
+                </h3>
+
+                <p>
+                    Complete heart care and cardiovascular
+                    treatment from experienced specialists.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <div class="department-icon" data-department="Orthopedics">
+                    🦴
+                </div>
+
+                <h3>
+                    Orthopedics
+                </h3>
+
+                <p>
+                    Treatment for bones, joints, muscles
+                    and orthopedic conditions.
+                </p>
+
+            </div>
+
+
+            <div class="department-card" data-department="Neurology">
+
+                <div class="department-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Neurology
+                </h3>
+
+                <p>
+                    Specialized diagnosis and treatment
+                    for neurological disorders.
+                </p>
+
+            </div>
+
+
+            <div class="department-card" data-department="Pediatrics">
+
+                <div class="department-icon">
+                    👶
+                </div>
+
+                <h3>
+                    Pediatrics
+                </h3>
+
+                <p>
+                    Complete healthcare services for
+                    infants, children and teenagers.
+                </p>
+
+            </div>
+
+
+            <div class="department-card" data-department="Dentistry">
+
+                <div class="department-icon">
+                    🦷
+                </div>
+
+                <h3>
+                    Dentistry
+                </h3>
+
+                <p>
+                    Professional dental care including
+                    cleaning, treatment and consultation.
+                </p>
+
+            </div>
+
+
+            <div class="department-card" data-department="Dermatology">
+
+                <div class="department-icon">
+                    🧴
+                </div>
+
+                <h3>
+                    Dermatology
+                </h3>
+
+                <p>
+                    Diagnosis and treatment of skin,
+                    hair and nail conditions.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div id="departmentDoctors">
+
+    <h2 id="selectedDepartment">Select a Department</h2>
+
+    <p id="doctorMessage">
+        Click a department to see its doctors.
+    </p>
+
+    <div id="doctorList"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     DOCTORS
+========================== -->
+
+<section id="doctors">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Meet Our Doctors
+            </h2>
+
+            <div class="title-line"></div>
+
+            <p>
+                Our experienced doctors are committed to
+                providing the best possible healthcare.
+            </p>
+
+        </div>
+
+
+        <div class="doctor-grid">
+
+
+            <div class="doctor-card">
+
+                <div class="doctor-photo">
+                    👨‍⚕️
+                </div>
+
+                <div class="doctor-info">
+
+                    <h3>
+                        Dr. Amit Sharma
+                    </h3>
+
+                    <div class="speciality">
+                        Cardiologist
+                    </div>
+
+                    <p>
+                        Expert in heart and cardiovascular care.
+                    </p>
+
+                    <div class="experience">
+                        ⭐ 12 Years Experience
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="doctor-card">
+
+                <div class="doctor-photo">
+                    👩‍⚕️
+                </div>
+
+                <div class="doctor-info">
+
+                    <h3>
+                        Dr. Priya Singh
+                    </h3>
+
+                    <div class="speciality">
+                        Dermatologist
+                    </div>
+
+                    <p>
+                        Specialist in skin and cosmetic treatment.
+                    </p>
+
+                    <div class="experience">
+                        ⭐ 8 Years Experience
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="doctor-card">
+
+                <div class="doctor-photo">
+                    👨‍⚕️
+                </div>
+
+                <div class="doctor-info">
+
+                    <h3>
+                        Dr. Rahul Verma
+                    </h3>
+
+                    <div class="speciality">
+                        Orthopedic Specialist
+                    </div>
+
+                    <p>
+                        Specialist in bones, joints and muscles.
+                    </p>
+
+                    <div class="experience">
+                        ⭐ 10 Years Experience
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="doctor-card">
+
+                <div class="doctor-photo">
+                    👩‍⚕️
+                </div>
+
+                <div class="doctor-info">
+
+                    <h3>
+                        Dr. Neha Gupta
+                    </h3>
+
+                    <div class="speciality">
+                        Pediatrician
+                    </div>
+
+                    <p>
+                        Specialist in children's healthcare.
+                    </p>
+
+                    <div class="experience">
+                        ⭐ 9 Years Experience
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     APPOINTMENT
+========================== -->
+
+<section class="appointment-section" id="appointment">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Book Your Appointment
+            </h2>
+
+            <div class="title-line"></div>
+
+            <p>
+                Fill in your details below to schedule
+                an appointment with our doctors.
+            </p>
+
+        </div>
+
+
+        <div class="appointment-wrapper">
+
+
+            <!-- LEFT INFORMATION -->
+
+            <div class="appointment-info">
+
+                <h2>
+                    Why Choose Shavi LifeCare?
+                </h2>
+
+                <p>
+                    We provide reliable and patient-friendly
+                    healthcare services with experienced doctors.
+                </p>
+
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        👨‍⚕️
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Experienced Doctors
+                        </h4>
+
+                        <p>
+                            Qualified and experienced medical professionals.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        🕐
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Flexible Timings
+                        </h4>
+
+                        <p>
+                            Convenient appointment slots for patients.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        🏥
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Modern Facilities
+                        </h4>
+
+                        <p>
+                            Advanced facilities for better healthcare.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <div class="info-icon">
+                        🚑
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Emergency Care
+                        </h4>
+
+                        <p>
+                            Emergency support available 24 hours.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- APPOINTMENT FORM -->
+
+            <div class="appointment-form">
+
+                <h2>
+                    Patient Information
+                </h2>
+
+
+                <form id="appointmentForm">
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Patient Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="patientName"
+                                placeholder="Enter full name"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Age *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="age"
+                                placeholder="Enter age"
+                                min="1"
+                                max="120"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Gender *
+                            </label>
+
+                            <select id="gender" required>
+
+                                <option value="">
+                                    Select Gender
+                                </option>
+
+                                <option>
+                                    Male
+                                </option>
+
+                                <option>
+                                    Female
+                                </option>
+
+                                <option>
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Phone Number *
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="10-digit mobile number"
+                                pattern="[0-9]{10}"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label>
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter email address">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Department *
+                            </label>
+
+                            <select id="department" required>
+
+                                <option value="">
+                                    Select Department
+                                </option>
+
+                                <option value="Cardiology">
+                                    Cardiology
+                                </option>
+
+                                <option value="Orthopedics">
+                                    Orthopedics
+                                </option>
+
+                                <option value="Neurology">
+                                    Neurology
+                                </option>
+
+                                <option value="Pediatrics">
+                                    Pediatrics
+                                </option>
+
+                                <option value="Dentistry">
+                                    Dentistry
+                                </option>
+
+                                <option value="Dermatology">
+                                    Dermatology
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Doctor *
+                            </label>
+
+                            <select id="doctor" required>
+
+                                <option value="">
+                                    Select Doctor
+                                </option>
+
+                                <option>
+                                    Dr. Amit Sharma
+                                </option>
+
+                                <option>
+                                    Dr. Priya Singh
+                                </option>
+
+                                <option>
+                                    Dr. Rahul Verma
+                                </option>
+
+                                <option>
+                                    Dr. Neha Gupta
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Appointment Date *
+                            </label>
+
+                            <input
+                                type="date"
+                                id="date"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Appointment Time *
+                            </label>
+
+                            <select id="time" required>
+
+                                <option value="">
+                                    Select Time
+                                </option>
+
+                                <option>
+                                    09:00 AM
+                                </option>
+
+                                <option>
+                                    10:00 AM
+                                </option>
+
+                                <option>
+                                    11:00 AM
+                                </option>
+
+                                <option>
+                                    12:00 PM
+                                </option>
+
+                                <option>
+                                    02:00 PM
+                                </option>
+
+                                <option>
+                                    03:00 PM
+                                </option>
+
+                                <option>
+                                    04:00 PM
+                                </option>
+
+                                <option>
+                                    05:00 PM
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label>
+                                Reason for Visit
+                            </label>
+
+                            <textarea
+                                id="reason"
+                                placeholder="Describe your problem or reason for consultation"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="book-btn">
+
+                        📅 Confirm Appointment
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     MY APPOINTMENTS
+========================== -->
+
+<section class="appointments-section" id="appointments">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                My Appointments
+            </h2>
+
+            <div class="title-line"></div>
+
+            <p>
+                View and manage your booked appointments.
+            </p>
+
+        </div>
+
+
+        <div id="appointmentList"
+             class="appointment-list">
+
+            <div class="no-appointments">
+
+                📋
+
+                <h3>
+                    No appointments yet
+                </h3>
+
+                <p>
+                    Your booked appointments will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTACT
+========================== -->
+
+<section class="contact-section" id="contact">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2 style="color:white;">
+                Contact Us
+            </h2>
+
+            <div class="title-line"></div>
+
+            <p style="color:#cbd5e1;">
+                We are always here to help you.
+            </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    📍
+                </div>
+
+                <h3>
+                    Address
+                </h3>
+
+                <p>
+                    645A,Vibhuti Khand,Gomti Nagar<br>
+                    Uttar Pradesh, India
+                </p>
+
+            </div>
+
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    📞
+                </div>
+
+                <h3>
+                    Phone
+                </h3>
+
+                <p>
+                    +91 8081296131
+                </p>
+
+            </div>
+
+
+            <div class="contact-card">
+
+                <div class="icon">
+                    ✉️
+                </div>
+
+                <h3>
+                    Email
+                </h3>
+
+                <p>
+                    shavilifecare@gmail.com
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <p>
+        © 2026 <span>Shavi LifeCare Hospital</span>.
+        All Rights Reserved.
+    </p>
+
+    <p>
+        Hospital Appointment Management System |
+        BCA Minor Project
+    </p>
+
+</footer>
+
+
+
+<!-- =========================
+     NOTIFICATION
+========================== -->
+
+<div id="notification"
+     class="notification">
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script>
+
+    /* ==================================
+       GET HTML ELEMENTS
+    ================================== */
+
+    const appointmentForm =
+        document.getElementById("appointmentForm");
+
+    const appointmentList =
+        document.getElementById("appointmentList");
+
+    const notification =
+        document.getElementById("notification");
+
+    const dateInput =
+        document.getElementById("date");
+
+
+    /* ==================================
+       SET MINIMUM DATE
+       Prevent past appointments
+    ================================== */
+
+    const today =
+        new Date().toISOString().split("T")[0];
+
+    dateInput.min = today;
+
+
+    /* ==================================
+       LOAD APPOINTMENTS
+       FROM LOCAL STORAGE
+    ================================== */
+
+    let appointments =
+        JSON.parse(
+            localStorage.getItem("hospitalAppointments")
+        ) || [];
+
+
+    /* ==================================
+       DISPLAY EXISTING APPOINTMENTS
+    ================================== */
+
+    displayAppointments();
+
+
+    /* ==================================
+       FORM SUBMISSION
+    ================================== */
+
+    appointmentForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            /* GET FORM VALUES */
+
+            const patientName =
+                document.getElementById("patientName").value.trim();
+
+            const age =
+                document.getElementById("age").value;
+
+            const gender =
+                document.getElementById("gender").value;
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const department =
+                document.getElementById("department").value;
+
+            const doctor =
+                document.getElementById("doctor").value;
+
+            const date =
+                document.getElementById("date").value;
+
+            const time =
+                document.getElementById("time").value;
+
+            const reason =
+                document.getElementById("reason").value.trim();
+
+
+            /* ==================================
+               PHONE VALIDATION
+            ================================== */
+
+            if (!/^[0-9]{10}$/.test(phone)) {
+
+                showNotification(
+                    "Please enter a valid 10-digit phone number.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /* ==================================
+               CHECK DUPLICATE SLOT
+            ================================== */
+
+            const alreadyBooked =
+                appointments.some(function(appointment) {
+
+                    return (
+                        appointment.doctor === doctor &&
+                        appointment.date === date &&
+                        appointment.time === time
+                    );
+
+                });
+
+
+            if (alreadyBooked) {
+
+                showNotification(
+                    "This doctor is already booked for this time slot.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            /* ==================================
+               CREATE APPOINTMENT ID
+            ================================== */
+
+            const appointmentId =
+                "APT" +
+                Math.floor(
+                    10000 + Math.random() * 90000
+                );
+
+
+            /* ==================================
+               CREATE APPOINTMENT OBJECT
+            ================================== */
+
+            const appointment = {
+
+                id: appointmentId,
+
+                patientName: patientName,
+
+                age: age,
+
+                gender: gender,
+
+                phone: phone,
+
+                email: email,
+
+                department: department,
+
+                doctor: doctor,
+
+                date: date,
+
+                time: time,
+
+                reason: reason,
+
+                status: "Confirmed"
+
+            };
+
+
+            /* ==================================
+               SAVE APPOINTMENT
+            ================================== */
+
+            appointments.push(appointment);
+
+
+            localStorage.setItem(
+                "hospitalAppointments",
+                JSON.stringify(appointments)
+            );
+
+
+            /* ==================================
+               UPDATE SCREEN
+            ================================== */
+
+            displayAppointments();
+
+
+            /* ==================================
+               RESET FORM
+            ================================== */
+
+            appointmentForm.reset();
+
+
+            /* ==================================
+               SHOW SUCCESS MESSAGE
+            ================================== */
+
+            showNotification(
+                "Appointment booked successfully! Appointment ID: " +
+                appointmentId
+            );
+
+
+            /* ==================================
+               SCROLL TO APPOINTMENTS
+            ================================== */
+
+            setTimeout(function() {
+
+                document
+                    .getElementById("appointments")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+            }, 1000);
+
+        }
+    );
+
+
+    /* ==================================
+       DISPLAY APPOINTMENTS FUNCTION
+    ================================== */
+
+    function displayAppointments() {
+
+        if (appointments.length === 0) {
+
+            appointmentList.innerHTML = `
+
+                <div class="no-appointments">
+
+                    📋
+
+                    <h3>
+                        No appointments yet
+                    </h3>
+
+                    <p>
+                        Your booked appointments will appear here.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        appointmentList.innerHTML = "";
+
+
+        appointments.forEach(function(appointment) {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "appointment-card";
+
+
+            card.innerHTML = `
+
+                <div class="appointment-details">
+
+                    <h3>
+                        ${appointment.patientName}
+                    </h3>
+
+                    <p>
+                        <strong>Appointment ID:</strong>
+                        ${appointment.id}
+                    </p>
+
+                    <p>
+                        <strong>Doctor:</strong>
+                        ${appointment.doctor}
+                    </p>
+
+                    <p>
+                        <strong>Department:</strong>
+                        ${appointment.department}
+                    </p>
+
+                    <p>
+                        <strong>Date:</strong>
+                        ${formatDate(appointment.date)}
+                    </p>
+
+                    <p>
+                        <strong>Time:</strong>
+                        ${appointment.time}
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        ${appointment.phone}
+                    </p>
+
+                    ${
+                        appointment.reason
+                        ?
+                        `<p>
+                            <strong>Reason:</strong>
+                            ${appointment.reason}
+                         </p>`
+                        :
+                        ""
+                    }
+
+                    <span class="appointment-status">
+                        ✓ ${appointment.status}
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="cancel-btn"
+                    onclick="cancelAppointment('${appointment.id}')">
+
+                    Cancel Appointment
+
+                </button>
+
+            `;
+
+
+            appointmentList.appendChild(card);
+
+        });
+
+    }
+
+
+    /* ==================================
+       CANCEL APPOINTMENT
+    ================================== */
+
+    function cancelAppointment(id) {
+
+        const confirmation =
+            confirm(
+                "Are you sure you want to cancel this appointment?"
+            );
+
+
+        if (!confirmation) {
+            return;
+        }
+
+
+        appointments =
+            appointments.filter(function(appointment) {
+
+                return appointment.id !== id;
+
+            });
+
+
+        localStorage.setItem(
+            "hospitalAppointments",
+            JSON.stringify(appointments)
+        );
+
+
+        displayAppointments();
+
+
+        showNotification(
+            "Appointment cancelled successfully."
+        );
+
+    }
+
+
+    /* ==================================
+       FORMAT DATE
+    ================================== */
+
+    function formatDate(dateString) {
+
+        const date =
+            new Date(dateString + "T00:00:00");
+
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+    /* ==================================
+       NOTIFICATION
+    ================================== */
+
+    function showNotification(
+        message,
+        type = "success"
+    ) {
+
+        notification.textContent =
+            message;
+
+
+        if (type === "error") {
+
+            notification.style.background =
+                "#dc2626";
+
+        } else {
+
+            notification.style.background =
+                "#16a34a";
+
+        }
+
+
+        notification.classList.add("show");
+
+
+        setTimeout(function() {
+
+            notification.classList.remove("show");
+
+        }, 4000);
+
+    }
+
+
+</script>
+<script>
+
+// your existing JavaScript code
+
+
+// PASTE THE NEW DEPARTMENT JAVASCRIPT HERE
+
+const departmentDoctors = {
+
+    "Cardiology": [
+        {
+            name: "Dr. Amit Sharma",
+            qualification: "MD - Cardiology",
+            experience: "10 Years Experience"
+        },
+        {
+            name: "Dr. Rahul Verma",
+            qualification: "DM - Cardiology",
+            experience: "8 Years Experience"
+        }
+    ],
+
+    "Neurology": [
+        {
+            name: "Dr. Priya Singh",
+            qualification: "MD - Neurology",
+            experience: "9 Years Experience"
+        }
+    ],
+
+    "Orthopedics": [
+        {
+            name: "Dr. Rahul Verma",
+            qualification: "MS - Orthopedics",
+            experience: "8 Years Experience"
+        }
+    ],
+
+    "Dermatology": [
+        {
+            name: "Dr. Neha Gupta",
+            qualification: "MD - Dermatology",
+            experience: "7 Years Experience"
+        }
+    ],
+
+    "Pediatrics": [
+        {
+            name: "Dr. Priya Singh",
+            qualification: "MD - Pediatrics",
+            experience: "9 Years Experience"
+        }
+    ],
+
+    "Gynecology": [
+        {
+            name: "Dr. Neha Gupta",
+            qualification: "MD - Gynecology",
+            experience: "7 Years Experience"
+        }
+    ]
+};
+
+const departmentCards =
+    document.querySelectorAll(".department-card");
+
+departmentCards.forEach(function(card) {
+
+    card.addEventListener("click", function() {
+
+        const department =
+            this.getAttribute("data-department");
+
+        const doctors =
+            departmentDoctors[department];
+
+        const selectedDepartment =
+            document.getElementById("selectedDepartment");
+
+        const doctorMessage =
+            document.getElementById("doctorMessage");
+
+        const doctorList =
+            document.getElementById("doctorList");
+
+        selectedDepartment.textContent =
+            "Doctors in " + department;
+
+        doctorList.innerHTML = "";
+
+        if (doctors && doctors.length > 0) {
+
+            doctorMessage.textContent =
+                "Available doctors in " + department + ":";
+
+            doctors.forEach(function(doctor) {
+
+                const doctorCard =
+                    document.createElement("div");
+
+                doctorCard.className = "doctor-card";
+
+                doctorCard.innerHTML = `
+                    <div class="doctor-icon">👨‍⚕️</div>
+                    <h3>${doctor.name}</h3>
+                    <p>${doctor.qualification}</p>
+                    <p>${doctor.experience}</p>
+                `;
+
+                doctorList.appendChild(doctorCard);
+
+            });
+
+        }
+
+        document.getElementById("departmentDoctors")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+    });
+
+});
+// Show thank-you message
+function showThankYouMessage() {
+
+    const message = document.getElementById("thankYouMessage");
+
+    message.style.display = "flex";
+}
+
+
+// Close thank-you message
+function closeThankYouMessage() {
+
+    const message = document.getElementById("thankYouMessage");
+
+    message.style.display = "none";
+}
+
+</script>
+
+</body>
+
+</html>
